@@ -59,4 +59,3 @@ Navigate to: `http://localhost:8085`
 
 - **Company:** SunPower Energy Inc.
 - **Founder:** Naresh Yadav
-- **License:** MIT License
