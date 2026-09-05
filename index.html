@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SunPower Energy - Smart Home Solar Rooftops | Founded by Naresh Yadav</title>
+    <meta name="description" content="SunPower Energy - Premium Smart Home Solar Rooftops & Govt Subsidy Calculator. Founded by Naresh Yadav. Interactive 3D Solar Panel Viewer & Solar ROI Calculator.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+    <!-- Header & Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="brand-logo" id="brandLogo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-solar-panel"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="brand-name">SUN<span class="accent-text">POWER</span> ENERGY</span>
+                    <span class="founder-tag">Founded by Naresh Yadav</span>
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <a href="#hero" class="nav-link active">Home</a>
+                <a href="#3d-viewer" class="nav-link">3D Solar Viewer</a>
+                <a href="#calculator" class="nav-link">Savings Calculator</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#about" class="nav-link">About Founder</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="btn btn-primary" id="openQuoteModalBtn">
+                    <i class="fa-solid fa-calculator"></i> Get Free Solar Quote
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero-section" id="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <span class="hero-badge"><i class="fa-solid fa-sun text-warning"></i> PM Surya Ghar Subsidy Approved</span>
+                    <h1>Power Your Home with Smart Solar & <span class="gradient-text">Cut Bills to ₹0</span></h1>
+                    <p>India's premier smart solar rooftop platform founded by <strong>Naresh Yadav</strong>. Get up to ₹78,000 Govt. Subsidy, 25-Year Warranty, and zero electricity bills.</p>
+
+                    <div class="hero-stats-row">
+                        <div class="hero-stat-pill">
+                            <i class="fa-solid fa-bolt text-accent"></i>
+                            <div>
+                                <strong>10,000+</strong>
+                                <span>Homes Powered</span>
+                            </div>
+                        </div>
+                        <div class="hero-stat-pill">
+                            <i class="fa-solid fa-hand-holding-dollar text-success"></i>
+                            <div>
+                                <strong>Up to ₹78,000</strong>
+                                <span>Instant Govt. Subsidy</span>
+                            </div>
+                        </div>
+                        <div class="hero-stat-pill">
+                            <i class="fa-solid fa-shield-halved text-warning"></i>
+                            <div>
+                                <strong>25 Years</strong>
+                                <span>Performance Warranty</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a href="#calculator" class="btn btn-success btn-lg"><i class="fa-solid fa-calculator"></i> Calculate Solar Savings</a>
+                        <a href="#3d-viewer" class="btn btn-outline btn-lg"><i class="fa-solid fa-cube"></i> Explore 3D Solar Panel</a>
+                    </div>
+                </div>
+
+                <div class="hero-image-wrapper">
+                    <img src="hero_solar_rooftop.jpg" alt="SunPower Energy Solar Rooftop" class="hero-img">
+                    <div class="hero-floating-card">
+                        <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
+                        <div>
+                            <strong>Clean Energy Leader</strong>
+                            <p>Founded by Naresh Yadav</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3D INTERACTIVE ROTATING SOLAR PANEL VIEWER SECTION -->
+        <section class="section-container" id="3d-viewer">
+            <div class="section-title-wrap text-center">
+                <span class="section-tag"><i class="fa-solid fa-cube"></i> Interactive 360° Tech Preview</span>
+                <h2>3D Rotating Solar Panel Viewer</h2>
+                <p>Click and drag anywhere on the panel to rotate in 3D. Adjust sun angle to see real-time glass reflection and power dynamics!</p>
+            </div>
+
+            <div class="viewer-layout-grid">
+                <!-- 3D Canvas Box -->
+                <div class="canvas-card">
+                    <div class="canvas-header">
+                        <span class="status-indicator"><i class="fa-solid fa-rotate"></i> Drag / Touch to Rotate 360°</span>
+                        <div class="control-pills">
+                            <button class="ctrl-btn active" id="btnTechPerc">N-Type TOPCon (22.8%)</button>
+                            <button class="ctrl-btn" id="btnTechMono">Monocrystalline PERC</button>
+                        </div>
+                    </div>
+
+                    <div class="canvas-container">
+                        <canvas id="solar3DCanvas" width="680" height="420"></canvas>
+                        <div class="drag-hint"><i class="fa-solid fa-hand-pointer"></i> Hold Mouse & Drag to Rotate 360°</div>
+                    </div>
+
+                    <div class="canvas-controls-bar">
+                        <div class="slider-group">
+                            <label><i class="fa-solid fa-sun text-warning"></i> Sun Position Angle: <span id="sunAngleVal">45°</span></label>
+                            <input type="range" id="sunAngleSlider" min="10" max="170" value="45">
+                        </div>
+                        <div class="slider-group">
+                            <label><i class="fa-solid fa-arrows-up-down"></i> Panel Tilt Angle: <span id="tiltAngleVal">30°</span></label>
+                            <input type="range" id="tiltAngleSlider" min="0" max="60" value="30">
+                        </div>
+                        <button class="btn btn-sm btn-outline" id="reset3DBtn"><i class="fa-solid fa-arrows-rotate"></i> Reset View</button>
+                    </div>
+                </div>
+
+                <!-- Panel Specifications Panel -->
+                <div class="specs-card">
+                    <h3><i class="fa-solid fa-microchip text-accent"></i> SunPower Ultra-550W Specs</h3>
+                    <p class="text-muted">High-efficiency half-cut N-type TOPCon cell technology engineered for extreme durability.</p>
+
+                    <div class="specs-list">
+                        <div class="spec-row">
+                            <span>Peak Power Output</span>
+                            <strong>550 Watts (STC)</strong>
+                        </div>
+                        <div class="spec-row">
+                            <span>Module Efficiency</span>
+                            <strong class="text-success">22.8% (Industry High)</strong>
+                        </div>
+                        <div class="spec-row">
+                            <span>Cell Technology</span>
+                            <strong>144 Half-Cut TOPCon</strong>
+                        </div>
+                        <div class="spec-row">
+                            <span>Temp. Coefficient</span>
+                            <strong>-0.30% / °C</strong>
+                        </div>
+                        <div class="spec-row">
+                            <span>Glass Protection</span>
+                            <strong>3.2mm Anti-Reflective AR</strong>
+                        </div>
+                        <div class="spec-row">
+                            <span>Frame Material</span>
+                            <strong>Anodized Anodic Aluminum</strong>
+                        </div>
+                        <div class="spec-row">
+                            <span>Degradation Rate</span>
+                            <strong>0.4% / Year (90% at 25 yrs)</strong>
+                        </div>
+                        <div class="spec-row">
+                            <span>Quality Certification</span>
+                            <strong>IEC 61215 / MNRE / BIS Approved</strong>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" onclick="scrollToCalc()"><i class="fa-solid fa-calculator"></i> Calculate Required Panels</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MATHEMATICAL SOLAR ROI & SUBSIDY CALCULATOR SECTION -->
+        <section class="section-container dark-bg-section" id="calculator">
+            <div class="section-title-wrap text-center">
+                <span class="section-tag"><i class="fa-solid fa-calculator"></i> Instant Mathematical Estimation</span>
+                <h2>Solar ROI & PM Surya Ghar Subsidy Calculator</h2>
+                <p>Adjust your monthly electricity bill and rooftop area to calculate exact system size, government subsidy, and 25-year financial returns!</p>
+            </div>
+
+            <div class="calculator-grid">
+                <!-- Sliders Controls -->
+                <div class="calc-inputs-card">
+                    <h4><i class="fa-solid fa-sliders text-success"></i> Input Your Details</h4>
+
+                    <div class="calc-input-group">
+                        <div class="input-header">
+                            <label>Monthly Electricity Bill (₹)</label>
+                            <span class="input-val-badge" id="billVal">₹5,000 / month</span>
+                        </div>
+                        <input type="range" id="billSlider" min="1000" max="30000" step="500" value="5000">
+                        <div class="slider-scale">
+                            <span>₹1,000</span>
+                            <span>₹15,000</span>
+                            <span>₹30,000+</span>
+                        </div>
+                    </div>
+
+                    <div class="calc-input-group">
+                        <div class="input-header">
+                            <label>Rooftop Area Available (sq. ft)</label>
+                            <span class="input-val-badge" id="areaVal">500 sq ft</span>
+                        </div>
+                        <input type="range" id="areaSlider" min="100" max="3000" step="50" value="500">
+                        <div class="slider-scale">
+                            <span>100 sq ft</span>
+                            <span>1,500 sq ft</span>
+                            <span>3,000 sq ft</span>
+                        </div>
+                    </div>
+
+                    <div class="calc-input-group">
+                        <div class="input-header">
+                            <label>Electricity Tariff Rate (₹ / Unit)</label>
+                            <span class="input-val-badge" id="tariffVal">₹8.00 / kWh</span>
+                        </div>
+                        <input type="range" id="tariffSlider" min="5" max="12" step="0.5" value="8">
+                    </div>
+
+                    <div class="calc-formula-info">
+                        <h5><i class="fa-solid fa-subscript text-accent"></i> Mathematical Formula Applied</h5>
+                        <p>$$\text{System Size (kW)} = \min\left(\frac{\text{Bill}}{1200}, \frac{\text{Area}}{100}\right)$$</p>
+                        <p>$$\text{Govt Subsidy} = \text{PM Surya Ghar Scheme (Up to ₹78,000)}$$</p>
+                    </div>
+                </div>
+
+                <!-- Mathematical Results Display Card -->
+                <div class="calc-results-card">
+                    <div class="results-header">
+                        <span>Your Customized Solar Solution</span>
+                        <h2 class="text-accent" id="calcSystemKw">4.0 kW Plant</h2>
+                    </div>
+
+                    <div class="results-metrics-grid">
+                        <div class="res-box">
+                            <span class="res-label">Daily Generation</span>
+                            <strong class="res-val" id="calcDailyUnits">18.0 Units/day</strong>
+                        </div>
+                        <div class="res-box">
+                            <span class="res-label">Annual Generation</span>
+                            <strong class="res-val" id="calcAnnualUnits">6,570 kWh/yr</strong>
+                        </div>
+                        <div class="res-box">
+                            <span class="res-label">Gross Installation Cost</span>
+                            <strong class="res-val" id="calcGrossCost">₹2,20,000</strong>
+                        </div>
+                        <div class="res-box highlight-subsidy">
+                            <span class="res-label">PM Surya Ghar Subsidy</span>
+                            <strong class="res-val text-success" id="calcSubsidy">- ₹78,000</strong>
+                        </div>
+                    </div>
+
+                    <div class="net-cost-banner">
+                        <div>
+                            <span>Net Out-Of-Pocket Cost:</span>
+                            <h2 id="calcNetCost">₹1,42,000</h2>
+                        </div>
+                        <div class="text-right">
+                            <span>Payback Period:</span>
+                            <h3 class="text-warning" id="calcPayback">2.9 Years</h3>
+                        </div>
+                    </div>
+
+                    <div class="savings-25yr-box">
+                        <div class="box-title">
+                            <i class="fa-solid fa-piggy-bank text-warning"></i> Estimated 25-Year Cumulative Savings
+                        </div>
+                        <h1 class="savings-val text-success" id="calc25YrSavings">₹12,45,000</h1>
+                        <p class="savings-sub">Based on 5% annual grid tariff inflation rate</p>
+                    </div>
+
+                    <div class="eco-impact-row">
+                        <div class="eco-item">
+                            <i class="fa-solid fa-tree text-success"></i>
+                            <span id="calcTrees">270 Trees Planted</span>
+                        </div>
+                        <div class="eco-item">
+                            <i class="fa-solid fa-cloud-arrow-down text-accent"></i>
+                            <span id="calcCO2">5.3 Tons CO₂ Reduced/yr</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-success btn-block btn-lg" id="applySubsidyQuoteBtn">
+                        <i class="fa-solid fa-paper-plane"></i> Apply For Subsidy & Get Free Inspection
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTS SHOWCASE -->
+        <section class="section-container" id="products">
+            <div class="section-title-wrap text-center">
+                <span class="section-tag"><i class="fa-solid fa-solar-panel"></i> Hardware & Ecosystem</span>
+                <h2>Smart Solar Products</h2>
+                <p>Tier-1 equipment designed for maximum efficiency, high heat resistance, and long-term reliability.</p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-img-box">
+                        <img src="hero_solar_rooftop.jpg" alt="Smart Rooftop Solar">
+                        <span class="badge badge-success">Top Seller</span>
+                    </div>
+                    <div class="product-details">
+                        <h3>SunPower N-Type 550W Panel</h3>
+                        <p>22.8% module efficiency with bifacial glass technology and 25-year linear performance warranty.</p>
+                        <ul class="prod-specs">
+                            <li><i class="fa-solid fa-check text-success"></i> MNRE & BIS Approved</li>
+                            <li><i class="fa-solid fa-check text-success"></i> Anti-PID & Dust Resistant</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img-box">
+                        <img src="solar_inverter_battery.jpg" alt="Smart Inverter & Battery">
+                        <span class="badge badge-accent">Smart AI Inside</span>
+                    </div>
+                    <div class="product-details">
+                        <h3>Hybrid Inverter & Storage</h3>
+                        <p>Wall-mounted LFP lithium battery storage paired with pure sine wave hybrid smart inverter.</p>
+                        <ul class="prod-specs">
+                            <li><i class="fa-solid fa-check text-success"></i> 10-Year Battery Lifespan</li>
+                            <li><i class="fa-solid fa-check text-success"></i> App Monitoring & Auto-Grid Switch</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT FOUNDER NARESH YADAV -->
+        <section class="section-container dark-bg-section" id="about">
+            <div class="founder-card">
+                <div class="founder-content">
+                    <span class="founder-tag-badge"><i class="fa-solid fa-crown text-warning"></i> Leadership & Vision</span>
+                    <h2>Meet Our Founder: <span class="gradient-text">Naresh Yadav</span></h2>
+                    <p class="founder-bio">"At SunPower Energy, our mission is to accelerate India's transition to 100% clean energy by making smart rooftop solar affordable, reliable, and accessible for every household."</p>
+                    
+                    <div class="founder-pillars">
+                        <div class="pillar">
+                            <i class="fa-solid fa-award text-success"></i>
+                            <div>
+                                <strong>Quality First</strong>
+                                <span>Tier-1 MNRE Certified Equipment Only</span>
+                            </div>
+                        </div>
+                        <div class="pillar">
+                            <i class="fa-solid fa-handshake text-accent"></i>
+                            <div>
+                                <strong>Hassle-Free Subsidy</strong>
+                                <span>End-to-End PM Surya Ghar Portal Management</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="founder-badge-box">
+                    <div class="founder-seal">
+                        <i class="fa-solid fa-certificate"></i>
+                        <h3>Naresh Yadav</h3>
+                        <span>Founder & Managing Director</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <div class="footer-col brand-col">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-solar-panel"></i> SUN<span class="accent-text">POWER</span> ENERGY
+                </div>
+                <p>India's leading smart solar rooftop solutions provider.</p>
+                <div class="founder-badge">
+                    <i class="fa-solid fa-crown text-warning"></i> Founded by <strong>Naresh Yadav</strong>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Navigation</h4>
+                <a href="#hero">Home</a>
+                <a href="#3d-viewer">3D Solar Viewer</a>
+                <a href="#calculator">Solar ROI Calculator</a>
+                <a href="#products">Products</a>
+            </div>
+            <div class="footer-col">
+                <h4>Govt Schemes</h4>
+                <a href="#">PM Surya Ghar Muft Bijli Yojana</a>
+                <a href="#">Net Metering Approval Guide</a>
+                <a href="#">MNRE Approved Manufacturers List</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact & Head Office</h4>
+                <p><i class="fa-solid fa-location-dot"></i> SunPower Towers, Cyber Green Sector 44, New Delhi NCR</p>
+                <p><i class="fa-solid fa-phone"></i> +91 9876543210</p>
+                <span class="copyright">© 2026 SunPower Energy Inc. Founded by Naresh Yadav. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CONSULTATION & SUBSIDY MODAL -->
+    <div class="modal-overlay" id="quoteModal">
+        <div class="modal-container sm-modal">
+            <button class="modal-close-btn" id="closeQuoteModalBtn">&times;</button>
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-invoice-dollar text-success"></i> Get Solar Quote & Subsidy</h3>
+            </div>
+            <div class="modal-body">
+                <form id="quoteForm">
+                    <div class="form-group">
+                        <label>Your Full Name</label>
+                        <input type="text" id="quoteName" required placeholder="e.g. Naresh Yadav">
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile Number (for OTP & Verification)</label>
+                        <input type="tel" id="quotePhone" required placeholder="+91 9876543210">
+                    </div>
+                    <div class="form-group">
+                        <label>City & Pincode</label>
+                        <input type="text" id="quoteLocation" required placeholder="e.g. New Delhi - 110001">
+                    </div>
+                    <div class="form-group">
+                        <label>Recommended System Size</label>
+                        <input type="text" id="quoteKwSize" readonly value="4.0 kW Plant (₹78,000 Subsidy)">
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-block btn-lg" style="margin-top: 15px;">
+                        <i class="fa-solid fa-paper-plane"></i> SUBMIT & APPLY FOR SUBSIDY
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastContainer"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
